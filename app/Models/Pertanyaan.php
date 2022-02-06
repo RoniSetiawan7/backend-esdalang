@@ -15,7 +15,7 @@ class Pertanyaan extends Model
         'id', 'soal', 'jawaban_benar', 'jawaban_salah_1', 'jawaban_salah_2', 'jawaban_salah_3',
         'ket_gambar', 'file_path', 'id_materi', 'id_latihan'
     ];
-    protected $hidden = ["created_at", "updated_at", "id_latihan"];
+    protected $hidden = ["created_at", "updated_at"];
 
     public function getLatihan()
     {

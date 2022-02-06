@@ -38,3 +38,4 @@ Route::get('/kurikulum/kelas8', [DataApiController::class, 'kurikulum8']);
 Route::get('/kurikulum/kelas9', [DataApiController::class, 'kurikulum9']);
 
 Route::get('/latihan', [DataApiController::class, 'latihan']);
+Route::get('/pertanyaan', [DataApiController::class, 'pertanyaan']);

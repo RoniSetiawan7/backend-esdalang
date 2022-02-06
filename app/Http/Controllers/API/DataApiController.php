@@ -20,46 +20,59 @@ class DataApiController extends Controller
             ->get();
 
         foreach ($exercise as $ex) {
-            $question = Pertanyaan::select(
-                'id',
-                'soal',
-                'jawaban_benar',
-                'jawaban_salah_1',
-                'jawaban_salah_2',
-                'jawaban_salah_3',
-                'ket_gambar',
-                'pertanyaan.file_path',
-                'kode_materi',
-                'nm_materi',
-                'bab'
-            )
-                ->join('materi', 'materi.kode_materi', '=', 'pertanyaan.id_materi')
-                ->join('latihan', 'latihan.kode_latihan', '=', 'pertanyaan.id_latihan')
-                ->where('pertanyaan.id_latihan', '=', $ex->kode_latihan)
-                ->get();
 
-            foreach ($question as $qs) {
+            $data[] = [
+                "kode_latihan" => $ex->kode_latihan,
+                "nm_latihan" => $ex->nm_latihan,
+                "id_kelas" => $ex->id_kelas,
+                "nm_guru" => $ex->nm_guru,
+            ];
+        }
 
-                $data[] = [
-                    "kode_latihan" => $ex->kode_latihan,
-                    "nm_latihan" => $ex->nm_latihan,
-                    "id_kelas" => $ex->id_kelas,
-                    "nm_guru" => $ex->nm_guru,
-                    "pertanyaan"  => [[
-                        "id" => $qs->id,
-                        "soal" => $qs->soal,
-                        "ket_gambar" => $qs->ket_gambar,
-                        "file_path" => $qs->file_path,
-                        "kode_materi" => $qs->kode_materi,
-                        "nm_materi" => $qs->nm_materi,
-                        "bab" => $qs->bab,
-                        "jawaban_benar" => $qs->jawaban_benar,
-                        "jawaban_salah" => array(
-                            $qs->jawaban_salah_1, $qs->jawaban_salah_2, $qs->jawaban_salah_3
-                        )
-                    ]]
-                ];
-            }
+        if (isset($data)) {
+            return response()->json($data, 200);
+        } else {
+            return response()->json([]);
+        }
+    }
+
+    public function pertanyaan()
+    {
+        $question = Pertanyaan::select(
+            'id_latihan',
+            'id',
+            'soal',
+            'jawaban_benar',
+            'jawaban_salah_1',
+            'jawaban_salah_2',
+            'jawaban_salah_3',
+            'ket_gambar',
+            'pertanyaan.file_path',
+            'kode_materi',
+            'nm_materi',
+            'bab'
+        )
+            ->join('materi', 'materi.kode_materi', '=', 'pertanyaan.id_materi')
+            ->join('latihan', 'latihan.kode_latihan', '=', 'pertanyaan.id_latihan')
+            ->get();
+
+        foreach ($question as $qs) {
+
+            $data[] = [
+                "id_latihan" => $qs->id_latihan,
+                "id" => $qs->id,
+                "soal" => $qs->soal,
+                "ket_gambar" => $qs->ket_gambar,
+                "file_path" => $qs->file_path,
+                "kode_materi" => $qs->kode_materi,
+                "nm_materi" => $qs->nm_materi,
+                "bab" => $qs->bab,
+                "jawaban_benar" => $qs->jawaban_benar,
+                "jawaban_salah" => array(
+                    $qs->jawaban_salah_1, $qs->jawaban_salah_2, $qs->jawaban_salah_3
+                )
+
+            ];
         }
 
         if (isset($data)) {
@@ -83,9 +96,9 @@ class DataApiController extends Controller
         )
             ->join('kelas', 'materi.id_kelas', '=', 'kelas.kode_kelas')
             ->join('guru', 'materi.id_guru', '=', 'guru.nip')
-            ->where('materi.id_kelas', 7)
             ->orderBy('nm_materi', 'asc')
-            ->get();
+            ->get()
+            ->groupBy('nm_kelas');
 
         return response()->json($materi7, 200);
     }
