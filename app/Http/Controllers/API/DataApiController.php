@@ -36,7 +36,7 @@ class DataApiController extends Controller
         }
     }
 
-    public function pertanyaan()
+    public function pertanyaan($id_latihan)
     {
         $question = Pertanyaan::select(
             'id_latihan',
@@ -54,6 +54,7 @@ class DataApiController extends Controller
         )
             ->join('materi', 'materi.kode_materi', '=', 'pertanyaan.id_materi')
             ->join('latihan', 'latihan.kode_latihan', '=', 'pertanyaan.id_latihan')
+            ->where('pertanyaan.id_latihan', $id_latihan)
             ->get();
 
         foreach ($question as $qs) {
@@ -83,9 +84,9 @@ class DataApiController extends Controller
     }
 
     //API MATERI
-    public function materi7()
+    public function materi($id_kelas)
     {
-        $materi7 = Materi::select(
+        $subject = Materi::select(
             'materi.kode_materi',
             'materi.nm_materi',
             'kelas.nm_kelas',
@@ -96,65 +97,17 @@ class DataApiController extends Controller
         )
             ->join('kelas', 'materi.id_kelas', '=', 'kelas.kode_kelas')
             ->join('guru', 'materi.id_guru', '=', 'guru.nip')
-            ->orderBy('nm_materi', 'asc')
-            ->get()
-            ->groupBy('nm_kelas');
-
-        return response()->json($materi7, 200);
-    }
-    public function materi8()
-    {
-        $materi8 = Materi::select(
-            'materi.kode_materi',
-            'materi.nm_materi',
-            'kelas.nm_kelas',
-            'guru.nm_guru',
-            'materi.bab',
-            'materi.file_materi',
-            'materi.file_path'
-        )
-            ->join('kelas', 'materi.id_kelas', '=', 'kelas.kode_kelas')
-            ->join('guru', 'materi.id_guru', '=', 'guru.nip')
-            ->where('materi.id_kelas', 8)
+            ->where('materi.id_kelas', $id_kelas)
             ->orderBy('nm_materi', 'asc')
             ->get();
 
-        return response()->json($materi8, 200);
-    }
-    public function materi9()
-    {
-        $materi9 = Materi::select(
-            'materi.kode_materi',
-            'materi.nm_materi',
-            'kelas.nm_kelas',
-            'guru.nm_guru',
-            'materi.bab',
-            'materi.file_materi',
-            'materi.file_path'
-        )
-            ->join('kelas', 'materi.id_kelas', '=', 'kelas.kode_kelas')
-            ->join('guru', 'materi.id_guru', '=', 'guru.nip')
-            ->where('materi.id_kelas', 9)
-            ->orderBy('nm_materi', 'asc')
-            ->get();
-
-        return response()->json($materi9, 200);
+        return response()->json($subject, 200);
     }
 
     //API KURIKULUM
-    public function kurikulum7()
+    public function kurikulum($id_kelas)
     {
-        $curriculum7 = Kurikulum::where('id_kelas', 7)->get();
-        return response()->json($curriculum7, 200);
-    }
-    public function kurikulum8()
-    {
-        $curriculum8 = Kurikulum::where('id_kelas', 8)->get();
-        return response()->json($curriculum8, 200);
-    }
-    public function kurikulum9()
-    {
-        $curriculum9 = Kurikulum::where('id_kelas', 9)->get();
-        return response()->json($curriculum9, 200);
+        $curriculum = Kurikulum::where('id_kelas', $id_kelas)->get();
+        return response()->json($curriculum, 200);
     }
 }

@@ -29,13 +29,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/logout', [AuthSiswaController::class, 'logout']);
 });
 
-Route::get('/materi/kelas7', [DataApiController::class, 'materi7']);
-Route::get('/materi/kelas8', [DataApiController::class, 'materi8']);
-Route::get('/materi/kelas9', [DataApiController::class, 'materi9']);
+Route::get('/materi/{id_kelas}', [DataApiController::class, 'materi']);
 
-Route::get('/kurikulum/kelas7', [DataApiController::class, 'kurikulum7']);
-Route::get('/kurikulum/kelas8', [DataApiController::class, 'kurikulum8']);
-Route::get('/kurikulum/kelas9', [DataApiController::class, 'kurikulum9']);
+Route::get('/kurikulum/{id_kelas}', [DataApiController::class, 'kurikulum7']);
 
 Route::get('/latihan', [DataApiController::class, 'latihan']);
-Route::get('/pertanyaan', [DataApiController::class, 'pertanyaan']);
+Route::get('/pertanyaan/{id_latihan}', [DataApiController::class, 'pertanyaan']);
