@@ -50,7 +50,7 @@ class MateriController extends Controller
                 'bab' => 'required',
                 'id_kelas' => 'required',
                 'id_guru' => 'required',
-                'file_materi' => 'required|mimes:PDF,pdf|max:5120',
+                'file_materi' => 'required|mimes:doc,docx,xls,xlsx,ppt,pptx,pdf|max:5120',
             ],
             [
                 'kode_materi.required' => 'ID Materi wajib diisi',
@@ -60,7 +60,7 @@ class MateriController extends Controller
                 'id_kelas.required' => 'Kelas wajib diisi',
                 'id_guru.required' => 'Guru Pengajar wajib diisi',
                 'file_materi.required' => 'File Materi wajib diisi',
-                'file_materi.mimes' => 'File Materi hanya dapat berupa format PDF dan pdf',
+                'file_materi.mimes' => 'File Materi hanya dapat berupa format doc,docx,xls,xlsx,ppt,pptx,pdf',
                 'file_materi.max' => 'Ukuran File Materi tidak boleh lebih dari 5MB',
             ]
         );
@@ -121,7 +121,7 @@ class MateriController extends Controller
                 'bab' => 'required',
                 'id_kelas' => 'required',
                 'id_guru' => 'required',
-                'file_materi' => 'nullable|mimes:PDF,pdf|max:5120'
+                'file_materi' => 'nullable|mimes:doc,docx,xls,xlsx,ppt,pptx,pdf|max:5120'
             ],
             [
                 'kode_materi.required' => 'ID Materi wajib diisi',
@@ -129,7 +129,7 @@ class MateriController extends Controller
                 'bab.required' => 'Bab Materi wajib diisi',
                 'id_kelas.required' => 'Kelas wajib diisi',
                 'id_guru.required' => 'Guru Pengajar wajib diisi',
-                'file_materi.mimes' => 'File Materi hanya dapat berupa format PDF dan pdf',
+                'file_materi.mimes' => 'File Materi hanya dapat berupa format doc,docx,xls,xlsx,ppt,pptx,pdf',
                 'file_materi.max' => 'Ukuran File Materi tidak boleh lebih dari 5MB',
             ]
         );

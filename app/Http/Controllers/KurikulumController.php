@@ -53,7 +53,7 @@ class KurikulumController extends Controller
                 'kode_kurikulum' => 'required|unique:kurikulum',
                 'id_materi' => 'required',
                 'id_kelas' => 'required',
-                'file_kurikulum' => 'required|mimes:PDF,pdf|max:2048',
+                'file_kurikulum' => 'required|mimes:doc,docx,xls,xlsx,ppt,pptx,pdf|max:2048',
                 'keterangan' => 'nullable'
             ],
             [
@@ -62,7 +62,7 @@ class KurikulumController extends Controller
                 'id_materi.required' => 'Nama Materi wajib diisi',
                 'id_kelas.required' => 'Nama Kelas wajib diisi',
                 'file_kurikulum.required' => 'File Kurikulum wajib diisi',
-                'file_kurikulum.mimes' => 'File Kurikulum hanya dapat berupa format PDF dan pdf',
+                'file_kurikulum.mimes' => 'File Kurikulum hanya dapat berupa format doc,docx,xls,xlsx,ppt,pptx,pdf',
                 'file_kurikulum.max' => 'Ukuran File Materi tidak boleh lebih dari 2MB',
             ]
         );
@@ -122,14 +122,14 @@ class KurikulumController extends Controller
                 'kode_kurikulum' => 'required',
                 'id_materi' => 'required',
                 'id_kelas' => 'required',
-                'file_kurikulum' => 'nullable|mimes:PDF,pdf|max:2048',
+                'file_kurikulum' => 'nullable|mimes:doc,docx,xls,xlsx,ppt,pptx,pdf|max:2048',
                 'keterangan' => 'nullable'
             ],
             [
                 'kode_kurikulum.required' => 'ID Kurikulum wajib diisi',
                 'id_materi.required' => 'Nama Materi wajib diisi',
                 'id_kelas.required' => 'Nama Kelas wajib diisi',
-                'file_kurikulum.mimes' => 'File Kurikulum hanya dapat berupa format PDF dan pdf',
+                'file_kurikulum.mimes' => 'File Kurikulum hanya dapat berupa format doc,docx,xls,xlsx,ppt,pptx,pdf',
                 'file_kurikulum.max' => 'Ukuran File Materi tidak boleh lebih dari 2MB',
             ]
         );
