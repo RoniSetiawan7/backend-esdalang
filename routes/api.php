@@ -31,7 +31,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 
 Route::get('/materi/{id_kelas}', [DataApiController::class, 'materi']);
 
-Route::get('/kurikulum/{id_kelas}', [DataApiController::class, 'kurikulum7']);
+Route::get('/kurikulum/{id_kelas}', [DataApiController::class, 'kurikulum']);
 
 Route::get('/latihan', [DataApiController::class, 'latihan']);
 Route::get('/pertanyaan/{id_latihan}', [DataApiController::class, 'pertanyaan']);
