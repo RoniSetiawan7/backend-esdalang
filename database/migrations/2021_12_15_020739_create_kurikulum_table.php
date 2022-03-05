@@ -23,6 +23,7 @@ class CreateKurikulumTable extends Migration
             $table->timestamps();
 
             $table->foreign('id_kelas')->references('kode_kelas')->on('kelas');
+            $table->foreign('id_materi')->references('kode_materi')->on('materi');
         });
     }
 
