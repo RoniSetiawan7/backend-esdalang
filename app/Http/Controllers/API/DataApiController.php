@@ -107,7 +107,22 @@ class DataApiController extends Controller
     //API KURIKULUM
     public function kurikulum($id_kelas)
     {
-        $curriculum = Kurikulum::where('id_kelas', $id_kelas)->get();
+        // $curriculum = Kurikulum::where('id_kelas', $id_kelas)->get();
+        // return response()->json($curriculum, 200);
+        $curriculum = Kurikulum::select(
+            'kurikulum.kode_kurikulum',
+            'materi.nm_materi',
+            'kelas.nm_kelas',
+            'kurikulum.file_kurikulum',
+            'kurikulum.file_path',
+            'kurikulum.keterangan'
+        )
+            ->join('kelas', 'kurikulum.id_kelas', '=', 'kelas.kode_kelas')
+            ->join('materi', 'kurikulum.id_materi', '=', 'materi.kode_materi')
+            ->where('kurikulum.id_kelas', $id_kelas)
+            ->orderBy('nm_materi', 'asc')
+            ->get();
+
         return response()->json($curriculum, 200);
     }
 }
