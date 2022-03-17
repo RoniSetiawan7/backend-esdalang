@@ -27,13 +27,15 @@ class AuthSiswaController extends BaseController
                 'agama' => 'nullable',
                 'alamat' => 'nullable',
                 'no_telp' => 'nullable',
-                'id_kelas' => 'nullable',
-                'sub_kelas' => 'nullable',
+                'id_kelas' => 'required',
+                'sub_kelas' => 'required',
             ],
             [
                 'nis.required' => 'NIS wajib diisi',
                 'nis.unique' => 'NIS telah digunakan oleh siswa lain',
                 'nm_siswa.required' => 'Nama wajib diisi',
+                'id_kelas.required' => 'ID Kelas wajib diisi',
+                'sub_kelas.required' => 'Sub Kelas wajib diisi',
                 'password.required' => 'Password wajib diisi',
                 'password.min' => 'Password minimal 8 karakter',
                 'password.confirmed' => 'Password dan Konfirmasi Password tidak cocok',
@@ -52,6 +54,8 @@ class AuthSiswaController extends BaseController
 
         $success['nis'] = $siswa->nis;
         $success['nm_siswa'] = $siswa->nm_siswa;
+        $success['id_kelas'] = $siswa->id_kelas;
+        $success['sub_kelas'] = $siswa->sub_kelas;
         $success['token'] = $siswa->createToken('Register')->plainTextToken;
 
         return $this->sendResponse($success, 'Selamat, akun anda berhasil didaftarkan!');
@@ -79,6 +83,8 @@ class AuthSiswaController extends BaseController
 
             $success['nis'] = $siswa->nis;
             $success['nm_siswa'] = $siswa->nm_siswa;
+            $success['id_kelas'] = $siswa->id_kelas;
+            $success['sub_kelas'] = $siswa->sub_kelas;
             $success['token'] = $siswa->createToken('Login')->plainTextToken;
 
             return $this->sendResponse($success, 'Login berhasil');
