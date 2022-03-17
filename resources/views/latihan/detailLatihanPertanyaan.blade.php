@@ -27,6 +27,9 @@
             <b>{{ $i }}. </b><label for="question">. {!! $q->soal !!}</label>
             @php $i++;  @endphp
 
+            <br>
+            <img src="{{ Storage::url('public/latihan/' . $q->ket_gambar) }}" width="150px">
+
             <div class="row clearfix">
                 <div class="col-5 ml-5"><b>Correct :</b> {{ $q->jawaban_benar }}</div>
                 <div class="col-5"><b>Incorrect 2 :</b> {{ $q->jawaban_salah_2 }}</div>
