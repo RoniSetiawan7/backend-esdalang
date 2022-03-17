@@ -21,7 +21,7 @@ class CreatePertanyaanTable extends Migration
             $table->text('jawaban_salah_2');
             $table->text('jawaban_salah_3');
             $table->string('ket_gambar')->nullable();
-            $table->string('file_path')->nullable();
+            $table->string('image_path')->nullable();
             $table->string('id_latihan', 20);
             $table->string('id_materi', 20);
             $table->timestamps();

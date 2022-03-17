@@ -13,7 +13,7 @@ class Pertanyaan extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'id', 'soal', 'jawaban_benar', 'jawaban_salah_1', 'jawaban_salah_2', 'jawaban_salah_3',
-        'ket_gambar', 'file_path', 'id_materi', 'id_latihan'
+        'ket_gambar', 'image_path', 'id_materi', 'id_latihan'
     ];
     protected $hidden = ["created_at", "updated_at"];
 

@@ -72,7 +72,7 @@ class MateriController extends Controller
             $input['file_materi'] = "$nama_file";
 
             $path = Storage::url('public/materi/' . $nama_file);
-            $input['file_path'] = "$path";
+            $input['materi_path'] = "$path";
         }
 
         Materi::create($input);
@@ -150,7 +150,7 @@ class MateriController extends Controller
                 $input['file_materi'] = "$nama_file";
 
                 $path = Storage::url('public/materi/' . $nama_file);
-                $input['file_path'] = "$path";
+                $input['materi_path'] = "$path";
             }
         }
 

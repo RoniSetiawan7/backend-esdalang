@@ -20,7 +20,7 @@ class CreateMateriTable extends Migration
             $table->bigInteger('id_guru');
             $table->integer('bab');
             $table->string('file_materi');
-            $table->string('file_path');
+            $table->string('materi_path');
             $table->timestamps();
 
             $table->foreign('id_kelas')->references('kode_kelas')->on('kelas');

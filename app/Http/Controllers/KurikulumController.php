@@ -74,7 +74,7 @@ class KurikulumController extends Controller
             $input['file_kurikulum'] = "$nama_file";
 
             $path = Storage::url('public/kurikulum/' . $nama_file);
-            $input['file_path'] = "$path";
+            $input['kurikulum_path'] = "$path";
         }
 
         Kurikulum::create($input);
@@ -150,7 +150,7 @@ class KurikulumController extends Controller
                 $input['file_kurikulum'] = "$nama_file";
 
                 $path = Storage::url('public/kurikulum/' . $nama_file);
-                $input['file_path'] = "$path";
+                $input['kurikulum_path'] = "$path";
             }
         }
 

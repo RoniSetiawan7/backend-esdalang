@@ -113,7 +113,7 @@ class LatihanController extends Controller
                 'jawaban_salah_2' => 'required',
                 'jawaban_salah_3' => 'required',
                 'ket_gambar' => 'nullable|mimes:jpeg,bmp,png,jpg|max:2048',
-                'file_path' => 'nullable',
+                'image_path' => 'nullable',
                 'id_materi' => 'required',
             ],
             [
@@ -145,7 +145,7 @@ class LatihanController extends Controller
             $qs['ket_gambar'] = "$nama_file";
 
             $path = Storage::url('public/latihan/' . $nama_file);
-            $qs['file_path'] = "$path";
+            $qs['image_path'] = "$path";
         }
 
         $qs->save();
@@ -169,7 +169,7 @@ class LatihanController extends Controller
                 'jawaban_salah_2' => 'required',
                 'jawaban_salah_3' => 'required',
                 'ket_gambar' => 'nullable|mimes:jpeg,bmp,png,jpg|max:2048',
-                'file_path' => 'nullable',
+                'image_path' => 'nullable',
                 'id_materi' => 'required',
             ],
             [
@@ -200,7 +200,7 @@ class LatihanController extends Controller
                 $input['ket_gambar'] = "$nama_file";
 
                 $path = Storage::url('public/latihan/' . $nama_file);
-                $input['file_path'] = "$path";
+                $input['image_path'] = "$path";
             }
         }
 
@@ -233,7 +233,7 @@ class LatihanController extends Controller
                 'jawaban_salah_2' => 'required',
                 'jawaban_salah_3' => 'required',
                 'ket_gambar' => 'nullable|mimes:jpeg,bmp,png,jpg|max:2048',
-                'file_path' => 'nullable',
+                'image_path' => 'nullable',
                 'id_materi' => 'required',
             ],
             [
@@ -255,7 +255,7 @@ class LatihanController extends Controller
         $qs->jawaban_salah_2 = $request->jawaban_salah_2;
         $qs->jawaban_salah_3 = $request->jawaban_salah_3;
         $qs->ket_gambar = $request->ket_gambar;
-        $qs->file_path = $request->file_path;
+        $qs->image_path = $request->image_path;
         $qs->id_materi = $request->id_materi;
         $qs->id_latihan = $ex->kode_latihan;
 
@@ -265,7 +265,7 @@ class LatihanController extends Controller
             $qs['ket_gambar'] = "$nama_file";
 
             $path = Storage::url('public/latihan/' . $nama_file);
-            $qs['file_path'] = "$path";
+            $qs['image_path'] = "$path";
         }
 
         $qs->save();

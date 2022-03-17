@@ -12,7 +12,7 @@ class Kurikulum extends Model
     use HasFactory;
     protected $table = 'kurikulum';
     protected $primaryKey = 'kode_kurikulum';
-    protected $fillable = ['kode_kurikulum', 'id_materi', 'id_kelas', 'file_kurikulum', 'file_path', 'keterangan'];
+    protected $fillable = ['kode_kurikulum', 'id_materi', 'id_kelas', 'file_kurikulum', 'kurikulum_path', 'keterangan'];
     protected $hidden = ["created_at", "updated_at"];
     public $incrementing = false;
 

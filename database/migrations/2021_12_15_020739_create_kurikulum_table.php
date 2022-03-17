@@ -18,7 +18,7 @@ class CreateKurikulumTable extends Migration
             $table->string('id_materi', 20);
             $table->integer('id_kelas');
             $table->string('file_kurikulum');
-            $table->string('file_path');
+            $table->string('kurikulum_path');
             $table->text('keterangan')->nullable();
             $table->timestamps();
 
