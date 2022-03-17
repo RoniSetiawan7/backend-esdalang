@@ -24,11 +24,8 @@
         @php  $i=1;   @endphp
 
         @foreach ($qs as $q)
-            <b>{{ $i }}. </b><label for="question">. {!! $q->soal !!}</label>
+            <b>Soal Nomor {{ $i }} </b>{!! $q->soal !!}
             @php $i++;  @endphp
-
-            <br>
-            <img src="{{ Storage::url('public/latihan/' . $q->ket_gambar) }}" width="150px">
 
             <div class="row clearfix">
                 <div class="col-5 ml-5"><b>Correct :</b> {{ $q->jawaban_benar }}</div>

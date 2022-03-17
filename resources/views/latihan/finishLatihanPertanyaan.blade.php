@@ -1,7 +1,6 @@
 @extends('layouts.form')
 
 @section('form')
-
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left text-center">
@@ -21,7 +20,7 @@
         @php  $i=1;   @endphp
 
         @foreach ($qs as $q)
-            <b>{{ $i }}. </b><label for="question">. {!! $q->soal !!}</label>
+            <b>Soal Nomor {{ $i }} </b>{!! $q->soal !!}
             @php $i++;  @endphp
 
             <div class="row clearfix">
@@ -35,8 +34,6 @@
             </div>
 
             <br>
-
         @endforeach
     </div>
-
 @endsection
