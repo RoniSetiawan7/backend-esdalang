@@ -24,13 +24,13 @@
             @php $i++;  @endphp
 
             <div class="row clearfix">
-                <div class="col-5 ml-5"><b>Correct :</b> {{ $q->jawaban_benar }}</div>
-                <div class="col-5"><b>Incorrect 2 :</b> {{ $q->jawaban_salah_2 }}</div>
+                <div class="col-5 ml-5"><b>Benar :</b> {{ $q->jawaban_benar }}</div>
+                <div class="col-5"><b>Salah 2 :</b> {{ $q->jawaban_salah_2 }}</div>
             </div>
 
             <div class="row mb-3 my-1">
-                <div class="col-5 ml-5"><b>Incorrect 1 :</b> {{ $q->jawaban_salah_1 }}</div>
-                <div class="col-5"><b>Incorrect 3 :</b> {{ $q->jawaban_salah_3 }}</div>
+                <div class="col-5 ml-5"><b>Salah 1 :</b> {{ $q->jawaban_salah_1 }}</div>
+                <div class="col-5"><b>Salah 3 :</b> {{ $q->jawaban_salah_3 }}</div>
             </div>
 
             <br>
