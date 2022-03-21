@@ -1,10 +1,9 @@
 @extends('layouts.form')
 
 @section('form')
-
     <div class="row">
         <div class="col-lg-12 margin-tb">
-            <div class="float-left">
+            <div class="text-center">
                 <h1>Detail Siswa</h1>
             </div>
         </div>
