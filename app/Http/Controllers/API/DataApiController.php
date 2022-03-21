@@ -12,10 +12,11 @@ class DataApiController extends Controller
 {
 
     //API LATIHAN
-    public function latihan()
+    public function latihan($id_kelas)
     {
         $exercise = Latihan::select('kode_latihan', 'nm_latihan', 'id_kelas', 'nm_guru')
             ->join('guru', 'guru.nip', '=', 'latihan.id_guru')
+            ->where('id_kelas', $id_kelas)
             ->where('status', 1)
             ->get();
 
@@ -47,10 +48,11 @@ class DataApiController extends Controller
             'jawaban_salah_2',
             'jawaban_salah_3',
             'ket_gambar',
-            'pertanyaan.file_path',
+            'image_path',
             'kode_materi',
             'nm_materi',
-            'bab'
+            'bab',
+            'materi_path'
         )
             ->join('materi', 'materi.kode_materi', '=', 'pertanyaan.id_materi')
             ->join('latihan', 'latihan.kode_latihan', '=', 'pertanyaan.id_latihan')
@@ -64,10 +66,11 @@ class DataApiController extends Controller
                 "id" => $qs->id,
                 "soal" => $qs->soal,
                 "ket_gambar" => $qs->ket_gambar,
-                "file_path" => $qs->file_path,
+                "image_path" => $qs->image_path,
                 "kode_materi" => $qs->kode_materi,
                 "nm_materi" => $qs->nm_materi,
                 "bab" => $qs->bab,
+                "materi_path" => $qs->materi_path,
                 "jawaban_benar" => $qs->jawaban_benar,
                 "jawaban_salah" => array(
                     $qs->jawaban_salah_1, $qs->jawaban_salah_2, $qs->jawaban_salah_3
@@ -87,13 +90,13 @@ class DataApiController extends Controller
     public function materi($id_kelas)
     {
         $subject = Materi::select(
-            'materi.kode_materi',
-            'materi.nm_materi',
-            'kelas.nm_kelas',
-            'guru.nm_guru',
-            'materi.bab',
-            'materi.file_materi',
-            'materi.file_path'
+            'kode_materi',
+            'nm_materi',
+            'nm_kelas',
+            'nm_guru',
+            'bab',
+            'file_materi',
+            'materi_path'
         )
             ->join('kelas', 'materi.id_kelas', '=', 'kelas.kode_kelas')
             ->join('guru', 'materi.id_guru', '=', 'guru.nip')
@@ -107,15 +110,13 @@ class DataApiController extends Controller
     //API KURIKULUM
     public function kurikulum($id_kelas)
     {
-        // $curriculum = Kurikulum::where('id_kelas', $id_kelas)->get();
-        // return response()->json($curriculum, 200);
         $curriculum = Kurikulum::select(
-            'kurikulum.kode_kurikulum',
-            'materi.nm_materi',
-            'kelas.nm_kelas',
-            'kurikulum.file_kurikulum',
-            'kurikulum.file_path',
-            'kurikulum.keterangan'
+            'kode_kurikulum',
+            'nm_materi',
+            'nm_kelas',
+            'file_kurikulum',
+            'kurikulum_path',
+            'keterangan'
         )
             ->join('kelas', 'kurikulum.id_kelas', '=', 'kelas.kode_kelas')
             ->join('materi', 'kurikulum.id_materi', '=', 'materi.kode_materi')
