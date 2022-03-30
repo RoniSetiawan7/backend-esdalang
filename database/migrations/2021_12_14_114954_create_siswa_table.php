@@ -22,13 +22,13 @@ class CreateSiswaTable extends Migration
             $table->string('agama', 20)->nullable();
             $table->string('alamat')->nullable();
             $table->string('no_telp', 20)->nullable();
-            $table->string('id_kelas', 5)->nullable();
-            $table->string('sub_kelas', 5)->nullable();
+            $table->integer('id_kelas');
+            $table->string('sub_kelas', 5);
             $table->string('password')->nullable();
             $table->rememberToken();
             $table->timestamps();
 
-            // $table->foreign('id_kelas')->references('kode_kelas')->on('kelas');
+            $table->foreign('id_kelas')->references('kode_kelas')->on('kelas');
         });
     }
 
