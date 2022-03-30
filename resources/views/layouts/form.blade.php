@@ -84,6 +84,7 @@
                         <a class="collapse-item" href="{{ route('index-siswa') }}">Data Siswa</a>
                         <a class="collapse-item" href="{{ route('index-guru') }}">Data Guru</a>
                         <a class="collapse-item" href="{{ route('index-kurikulum') }}">Data Kurikulum</a>
+                        <a class="collapse-item" href="{{ route('index-hasilLatihan') }}">Hasil Latihan</a>
                     </div>
                 </div>
             </li>

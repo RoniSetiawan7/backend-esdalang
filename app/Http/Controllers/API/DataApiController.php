@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\HasilLatihan;
 use App\Models\Kurikulum;
 use App\Models\Latihan;
 use App\Models\Materi;
@@ -10,8 +11,40 @@ use App\Models\Pertanyaan;
 
 class DataApiController extends Controller
 {
+    //** API MATERI
+    public function materi($id_kelas)
+    {
+        $subject = Materi::select(
+            'nm_materi',
+        )
+            ->where('materi.id_kelas', $id_kelas)
+            ->get();
 
-    //API LATIHAN
+        return response()->json($subject, 200);
+    }
+
+    //** API SUB MATERI
+    public function subMateri($nm_materi)
+    {
+        $subSubject = Materi::select(
+            'kode_materi',
+            'nm_materi',
+            'nm_kelas',
+            'nm_guru',
+            'bab',
+            'file_materi',
+            'materi_path'
+        )
+            ->join('kelas', 'materi.id_kelas', '=', 'kelas.kode_kelas')
+            ->join('guru', 'materi.id_guru', '=', 'guru.nip')
+            ->where('materi.nm_materi', $nm_materi)
+            ->orderBy('nm_materi', 'asc')
+            ->get();
+
+        return response()->json($subSubject, 200);
+    }
+
+    //** API LATIHAN
     public function latihan($id_kelas)
     {
         $exercise = Latihan::select('kode_latihan', 'nm_latihan', 'id_kelas', 'nm_guru')
@@ -37,6 +70,7 @@ class DataApiController extends Controller
         }
     }
 
+    //** API PERTANYAAN
     public function pertanyaan($id_latihan)
     {
         $question = Pertanyaan::select(
@@ -86,28 +120,24 @@ class DataApiController extends Controller
         }
     }
 
-    //API MATERI
-    public function materi($id_kelas)
+    //** API HASIL LATIHAN
+    public function hasilLatihan($id_latihan, $id_siswa)
     {
-        $subject = Materi::select(
-            'kode_materi',
-            'nm_materi',
-            'nm_kelas',
-            'nm_guru',
-            'bab',
-            'file_materi',
-            'materi_path'
+        $result = HasilLatihan::select(
+            'id',
+            'id_siswa',
+            'id_latihan',
+            'jawaban',
+            'nilai'
         )
-            ->join('kelas', 'materi.id_kelas', '=', 'kelas.kode_kelas')
-            ->join('guru', 'materi.id_guru', '=', 'guru.nip')
-            ->where('materi.id_kelas', $id_kelas)
-            ->orderBy('nm_materi', 'asc')
+            ->where('hasil_latihan.id_siswa', $id_siswa)
+            ->where('hasil_latihan.id_latihan', $id_latihan)
             ->get();
 
-        return response()->json($subject, 200);
+        return response()->json($result, 200);
     }
 
-    //API KURIKULUM
+    //** API KURIKULUM
     public function kurikulum($id_kelas)
     {
         $curriculum = Kurikulum::select(

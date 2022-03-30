@@ -32,4 +32,9 @@ class Latihan extends Model
     {
         return $this->belongsTo(Kelas::class, 'id_kelas');
     }
+
+    public function getHasilLatihan()
+    {
+        return $this->hasOne(HasilLatihan::class, 'id_latihan');
+    }
 }

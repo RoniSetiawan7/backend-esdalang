@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\HasilLatihanController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\KurikulumController;
@@ -88,3 +89,8 @@ Route::get('/addmoresoal/{ex}', [LatihanController::class, 'addMorePertanyaan'])
 Route::post('/storemoresoal/{ex}', [LatihanController::class, 'storeMorePertanyaan'])->name('storeMorePertanyaan');
 
 Route::get('/status/update', [LatihanController::class, 'updateStatus'])->name('latihan.update.status');
+
+
+Route::get('/hasilLatihan', [HasilLatihanController::class, 'index'])->name('index-hasilLatihan');
+Route::get('/hasilLatihan/{id}/show', [HasilLatihanController::class, 'show'])->name('show-hasilLatihan');
+Route::get('/hasilLatihan/{id}', [HasilLatihanController::class, 'destroy'])->name('destroy-hasilLatihan');

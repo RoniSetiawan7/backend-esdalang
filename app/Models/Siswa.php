@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Kelas;
+use App\Models\HasilLatihan;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -23,5 +24,10 @@ class Siswa extends Model
     public function getKelas()
     {
         return $this->belongsTo(Kelas::class, 'id_kelas');
+    }
+
+    public function getHasilLatihan()
+    {
+        return $this->hasMany(HasilLatihan::class, 'id_siswa');
     }
 }
