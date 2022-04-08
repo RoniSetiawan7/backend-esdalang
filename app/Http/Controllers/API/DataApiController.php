@@ -18,9 +18,21 @@ class DataApiController extends Controller
             'nm_materi',
         )
             ->where('materi.id_kelas', $id_kelas)
-            ->get();
+            ->get()
+            ->unique('nm_materi');
 
-        return response()->json($subject, 200);
+        foreach ($subject as $sub) {
+
+            $data[] = [
+                "nm_materi" => $sub->nm_materi,
+            ];
+        }
+
+        if (isset($data)) {
+            return response()->json($data, 200);
+        } else {
+            return response()->json([]);
+        }
     }
 
     //** API SUB MATERI
