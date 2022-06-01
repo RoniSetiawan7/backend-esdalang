@@ -11,7 +11,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Backend Esdalang App</title>
+    <title>Admin Esdalang App</title>
 
     <!-- Fonts -->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
@@ -38,7 +38,7 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center">
-                <div class="sidebar-brand-text mx-3">Backend<br>Esdalang App</div>
+                <div class="sidebar-brand-text mx-3">Admin<br>Esdalang App</div>
             </a>
 
             <!-- Divider -->
