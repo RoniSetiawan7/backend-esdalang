@@ -1,7 +1,6 @@
 @extends('layouts.form')
 
 @section('form')
-
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left text-center">
@@ -40,7 +39,7 @@
             <div style="float: right">
                 <a href="{{ route('editPertanyaan', $q->id) }}" class="btn btn-outline-info btn-sm mr-1">Edit</a>
                 <a href="{{ route('deletePertanyaan', $q->id) }}" class="btn btn-outline-info btn-sm"
-                    onclick="return confirm('Yakin ingin menghapus soal nomor {{ $i }}?')">Hapus</a>
+                    onclick="return confirm('Yakin ingin menghapus soal nomor {{ $i - 1 }}?')">Hapus</a>
             </div>
 
             <div class="clearfix">
@@ -63,14 +62,14 @@
             $(function() {
                 @if (Session::has('success'))
                     Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil',
-                    text: '{{ Session::get('success') }}',
-                    showConfirmButton: false,
-                    timer: 2000 })
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: '{{ Session::get('success') }}',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
                 @endif
             });
         </script>
     @endpush
-
 @endsection
