@@ -61,7 +61,6 @@
                         <th>Kelas</th>
                         <th>Guru Pengampu</th>
                         <th>Bab</th>
-                        <th>File Materi</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -74,10 +73,6 @@
                             <td>{{ $sub->getKelas['nm_kelas'] }}</td>
                             <td>{{ $sub->getGuru['nm_guru'] }}</td>
                             <td>{{ $sub->bab }}</td>
-                            <td><a href="{{ Storage::url('public/materi/' . $sub->file_materi) }}">
-                                    Lihat Materi
-                                </a>
-                            </td>
                             <td align="right">
                                 <a href="{{ route('edit-materi', $sub->kode_materi) }}"
                                     class="btn btn-warning btn-sm" role="button"><i class="far fa-edit"></i></a>
@@ -115,11 +110,12 @@
                     $(function() {
                         @if (Session::has('success'))
                             Swal.fire({
-                            icon: 'success',
-                            title: 'Berhasil',
-                            text: '{{ Session::get('success') }}',
-                            showConfirmButton: false,
-                            timer: 2000 })
+                                icon: 'success',
+                                title: 'Berhasil',
+                                text: '{{ Session::get('success') }}',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
                         @endif
                     });
                 </script>

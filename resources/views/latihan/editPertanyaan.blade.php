@@ -4,6 +4,7 @@
 
 @section('css')
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" rel="stylesheet">
 @endsection
 
 <div class="row">
@@ -26,8 +27,7 @@
     </div>
 @endif
 
-<form action="{{ route('updatePertanyaan', $qs->id) }}" method="POST" autocomplete="off"
-    enctype="multipart/form-data">
+<form action="{{ route('updatePertanyaan', $qs->id) }}" method="POST" autocomplete="off" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="form-group">
@@ -37,7 +37,8 @@
             @foreach ($subject as $sub)
                 <option disable="true" value="{{ $sub->kode_materi }}"
                     {{ $sub->kode_materi == $qs->id_materi ? 'selected' : '' }}>
-                    {{ $sub->kode_materi }} - {{ $sub->nm_materi }}
+                    Kelas : {{ $sub->getKelas['nm_kelas'] }} |
+                    Materi : {{ $sub->nm_materi }} | Bab : {{ $sub->bab }}
                 </option>
             @endforeach
         </select>
@@ -57,7 +58,7 @@
     </div>
 
     <div class="form-group">
-        <label>Jawaban Benar:</label>
+        <label>Jawaban Benar :</label>
         <input type="text" name="jawaban_benar" value="{{ $qs->jawaban_benar }}" class="form-control">
     </div>
 
@@ -86,18 +87,20 @@
     <!-- SummerNote -->
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.js"></script>
+        <script src="{{ asset('js/summernote-math.js') }}"></script>
         <script>
             $(document).ready(function() {
                 $('#summernote').summernote({
                     spellCheck: false,
-                    height: 120,
+                    height: 150,
                     toolbar: [
                         ['style', ['style']],
                         ['font', ['bold', 'italic', 'underline', 'clear']],
                         ['color', ['color']],
                         ['para', ['ul', 'ol', 'paragraph']],
                         ['table', ['table']],
-                        ['insert', ['link', 'picture', 'video']],
+                        ['insert', ['link', 'picture', 'video', 'math']],
                         ['view', ['fullscreen', 'codeview', 'help']]
                     ]
                 });
@@ -108,7 +111,6 @@
                 background-color: white;
                 color: black;
             }
-
         </style>
     @endpush
 
@@ -119,9 +121,9 @@
             $(function() {
                 @if (Session::has('errors'))
                     Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    html: '<div>Ada kesalahan dalam mengisi data,<br />silahkan dicek kembali.<br /></div>',
+                        icon: 'error',
+                        title: 'Oops...',
+                        html: '<div>Ada kesalahan dalam mengisi data,<br />silahkan dicek kembali.<br /></div>',
                     })
                 @endif
             });
@@ -131,11 +133,12 @@
             $(function() {
                 @if (Session::has('success'))
                     Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil',
-                    text: '{{ Session::get('success') }}',
-                    showConfirmButton: false,
-                    timer: 2000 })
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: '{{ Session::get('success') }}',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
                 @endif
             });
         </script>

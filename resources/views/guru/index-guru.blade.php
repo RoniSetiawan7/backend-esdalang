@@ -80,11 +80,12 @@
                     $(function() {
                         @if (Session::has('success'))
                             Swal.fire({
-                            icon: 'success',
-                            title: 'Berhasil',
-                            text: '{{ Session::get('success') }}',
-                            showConfirmButton: false,
-                            timer: 2000 })
+                                icon: 'success',
+                                title: 'Berhasil',
+                                text: '{{ Session::get('success') }}',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
                         @endif
                     });
                 </script>

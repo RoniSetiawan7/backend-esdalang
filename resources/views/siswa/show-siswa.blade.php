@@ -15,6 +15,11 @@
         </div>
     </div>
     <hr>
+
+    <div class="float-right">
+        <img src="{{ Storage::url('public/profile/' . $student->foto_siswa) }}" width="200px">
+    </div>
+
     <div class="table-responsive">
         <table class="table table-striped">
             <tr>

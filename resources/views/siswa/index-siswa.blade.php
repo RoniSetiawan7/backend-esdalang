@@ -14,6 +14,14 @@
     </ol>
 </nav>
 
+
+<div class="row">
+    <div class="col-lg-12 margin-tb mb-3">
+        <a href="{{ route('create-siswa') }}" class="btn btn-success float-right"><i class="fas fa-plus"></i> Tambah
+            Data</a>
+    </div>
+</div>
+
 <div class="card border-left-info shadow h-100 py-2">
     <div class="card-body">
         <div class="form-group d-inline-block col-auto">
@@ -107,11 +115,12 @@
                     $(function() {
                         @if (Session::has('success'))
                             Swal.fire({
-                            icon: 'success',
-                            title: 'Berhasil',
-                            text: '{{ Session::get('success') }}',
-                            showConfirmButton: false,
-                            timer: 2000 })
+                                icon: 'success',
+                                title: 'Berhasil',
+                                text: '{{ Session::get('success') }}',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
                         @endif
                     });
                 </script>

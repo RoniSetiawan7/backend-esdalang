@@ -4,6 +4,7 @@
 
 @section('css')
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" rel="stylesheet">
 @endsection
 
 <div class="row">
@@ -35,10 +36,12 @@
             <option value="">Pilih Mata Pelajaran</option>
             @foreach ($subject as $sub)
                 @if (old('id_materi') == $sub->kode_materi)
-                    <option value="{{ $sub->kode_materi }}" selected>{{ $sub->kode_materi }} -
-                        {{ $sub->nm_materi }}</option>
+                    <option value="{{ $sub->kode_materi }}" selected>Kelas : {{ $sub->getKelas['nm_kelas'] }} |
+                        Materi : {{ $sub->nm_materi }} | Bab : {{ $sub->bab }}
+                    </option>
                 @else
-                    <option value="{{ $sub->kode_materi }}">{{ $sub->kode_materi }} - {{ $sub->nm_materi }}
+                    <option value="{{ $sub->kode_materi }}">Kelas : {{ $sub->getKelas['nm_kelas'] }} |
+                        Materi : {{ $sub->nm_materi }} | Bab : {{ $sub->bab }}
                     </option>
                 @endif
             @endforeach
@@ -85,18 +88,20 @@
     <!-- SummerNote -->
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.js"></script>
+        <script src="{{ asset('js/summernote-math.js') }}"></script>
         <script>
             $(document).ready(function() {
                 $('#summernote').summernote({
                     spellCheck: false,
-                    height: 120,
+                    height: 150,
                     toolbar: [
                         ['style', ['style']],
                         ['font', ['bold', 'italic', 'underline', 'clear']],
                         ['color', ['color']],
                         ['para', ['ul', 'ol', 'paragraph']],
                         ['table', ['table']],
-                        ['insert', ['link', 'picture', 'video']],
+                        ['insert', ['link', 'picture', 'video', 'math']],
                         ['view', ['fullscreen', 'codeview', 'help']]
                     ]
                 });
@@ -107,7 +112,6 @@
                 background-color: white;
                 color: black;
             }
-
         </style>
     @endpush
 
@@ -118,9 +122,9 @@
             $(function() {
                 @if (Session::has('errors'))
                     Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    html: '<div>Ada kesalahan dalam mengisi data,<br />silahkan dicek kembali.<br /></div>',
+                        icon: 'error',
+                        title: 'Oops...',
+                        html: '<div>Ada kesalahan dalam mengisi data,<br />silahkan dicek kembali.<br /></div>',
                     })
                 @endif
             });

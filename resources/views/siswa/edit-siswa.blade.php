@@ -20,11 +20,20 @@
                 @endforeach
             </ul>
         </div>
-
     @endif
-    <form action="{{ route('update-siswa', $student->nis) }}" method="POST" autocomplete="off">
+
+    <form action="{{ route('update-siswa', $student->nis) }}" method="POST" autocomplete="off" enctype="multipart/form-data">
         @csrf
         @method('PUT')
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Foto Siswa :</label>
+                <input type="file" name="foto_siswa" class="form-control">
+            </div>
+            <div class="form-group col-md-6">
+                <img src="{{ Storage::url('public/profile/' . $student->foto_siswa) }}" width="200px">
+            </div>
+        </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label>NIS :</label>
@@ -127,9 +136,9 @@
                 $(function() {
                     @if (Session::has('errors'))
                         Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        html: '<div>Ada kesalahan dalam mengisi data,<br />silahkan dicek kembali.<br /></div>',
+                            icon: 'error',
+                            title: 'Oops...',
+                            html: '<div>Ada kesalahan dalam mengisi data,<br />silahkan dicek kembali.<br /></div>',
                         })
                     @endif
                 });

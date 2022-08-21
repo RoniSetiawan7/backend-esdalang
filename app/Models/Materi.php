@@ -13,7 +13,7 @@ class Materi extends Model
     use HasFactory;
     protected $table = 'materi';
     protected $primaryKey = 'kode_materi';
-    protected $fillable = ['kode_materi', 'nm_materi', 'id_kelas', 'id_guru', 'bab', 'file_materi', 'materi_path'];
+    protected $fillable = ['kode_materi', 'nm_materi', 'id_kelas', 'id_guru', 'bab', 'isi_materi'];
     protected $hidden = ["created_at", "updated_at"];
     public $incrementing = false;
 

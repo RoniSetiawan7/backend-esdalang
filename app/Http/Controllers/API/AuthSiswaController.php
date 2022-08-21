@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\API\BaseController;
 use App\Models\Siswa;
+use App\Models\LoginSiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Validator;
@@ -18,24 +19,12 @@ class AuthSiswaController extends BaseController
         $validator = Validator::make(
             $request->all(),
             [
-                'nis' => 'required|unique:siswa',
-                'nm_siswa' => 'required',
+                'id_siswa' => 'required|unique:login_siswa',
                 'password' => 'required|min:8|confirmed',
-                'jk' => 'nullable',
-                'tempat_lahir' => 'nullable',
-                'tgl_lahir' => 'nullable',
-                'agama' => 'nullable',
-                'alamat' => 'nullable',
-                'no_telp' => 'nullable',
-                'id_kelas' => 'required',
-                'sub_kelas' => 'required',
             ],
             [
-                'nis.required' => 'NIS wajib diisi',
-                'nis.unique' => 'NIS telah digunakan oleh siswa lain',
-                'nm_siswa.required' => 'Nama wajib diisi',
-                'id_kelas.required' => 'ID Kelas wajib diisi',
-                'sub_kelas.required' => 'Sub Kelas wajib diisi',
+                'id_siswa.required' => 'NIS wajib diisi',
+                'id_siswa.unique' => 'NIS telah digunakan untuk mendaftar akun',
                 'password.required' => 'Password wajib diisi',
                 'password.min' => 'Password minimal 8 karakter',
                 'password.confirmed' => 'Password dan Konfirmasi Password tidak cocok',
@@ -46,19 +35,25 @@ class AuthSiswaController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors());
         }
 
-        $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $siswa = Siswa::create($input);
-
-        $siswa = Siswa::where('nis', $request->nis)->first();
-
-        $success['nis'] = $siswa->nis;
-        $success['nm_siswa'] = $siswa->nm_siswa;
-        $success['id_kelas'] = $siswa->id_kelas;
-        $success['sub_kelas'] = $siswa->sub_kelas;
-        $success['token'] = $siswa->createToken('Register')->plainTextToken;
-
-        return $this->sendResponse($success, 'Selamat, akun anda berhasil didaftarkan!');
+        $cekSiswa = Siswa::where('nis', '=', $request->input('id_siswa'))->first();
+        if ($cekSiswa === null) {
+            return $this->sendError('Unauthorised.', ['error' => 'Mohon maaf, NIS anda tidak terdaftar di server']);
+        } else {
+            $input = $request->all();
+            $input['password'] = bcrypt($input['password']);
+            $siswa = LoginSiswa::create($input);
+    
+            $siswa = LoginSiswa::where('id_siswa', $request->id_siswa)->first();
+    
+            $success['nis'] = $siswa->id_siswa;
+            $success['nm_siswa'] = $siswa->getSiswa['nm_siswa'];
+            $success['id_kelas'] = $siswa->getSiswa['id_kelas'];
+            $success['sub_kelas'] = $siswa->getSiswa['sub_kelas'];
+            $success['foto_path'] = $siswa->getSiswa['foto_path'];
+            $success['token'] = $siswa->createToken('Register')->plainTextToken;
+    
+            return $this->sendResponse($success, 'Selamat, akun anda berhasil didaftarkan!');
+        }
     }
 
     //LOGIN AKUN SISWA
@@ -66,25 +61,26 @@ class AuthSiswaController extends BaseController
     {
         $request->input(
             [
-                'nis' => 'required',
+                'id_siswa' => 'required',
                 'password' => 'required'
             ],
             [
-                'nis.required' => 'NIS wajib diisi',
+                'id_siswa.required' => 'NIS wajib diisi',
                 'password.required' => 'Password wajib diisi',
             ]
         );
 
-        $siswa = Siswa::where('nis', $request->nis)->first();
+        $siswa = LoginSiswa::where('id_siswa', $request->id_siswa)->first();
 
         if ($siswa && Hash::check($request->password, $siswa->password)) {
 
             $siswa->tokens()->delete();
 
-            $success['nis'] = $siswa->nis;
-            $success['nm_siswa'] = $siswa->nm_siswa;
-            $success['id_kelas'] = $siswa->id_kelas;
-            $success['sub_kelas'] = $siswa->sub_kelas;
+            $success['nis'] = $siswa->id_siswa;
+            $success['nm_siswa'] = $siswa->getSiswa['nm_siswa'];
+            $success['id_kelas'] = $siswa->getSiswa['id_kelas'];
+            $success['sub_kelas'] = $siswa->getSiswa['sub_kelas'];
+            $success['foto_path'] = $siswa->getSiswa['foto_path'];
             $success['token'] = $siswa->createToken('Login')->plainTextToken;
 
             return $this->sendResponse($success, 'Login berhasil');
@@ -102,10 +98,10 @@ class AuthSiswaController extends BaseController
             $input,
             [
                 'nm_siswa' => 'required',
-                'jk' => 'required',
+                'jk' => 'nullable',
                 'tempat_lahir' => 'nullable',
                 'tgl_lahir' => 'nullable',
-                'agama' => 'required',
+                'agama' => 'nullable',
                 'alamat' => 'nullable',
                 'no_telp' => 'nullable',
                 'id_kelas' => 'required',
@@ -113,8 +109,6 @@ class AuthSiswaController extends BaseController
             ],
             [
                 'nm_siswa.required' => 'Nama wajib diisi',
-                'jk.required' => 'Jenis Kelamin wajib diisi',
-                'agama.required' => 'Agama wajib diisi',
                 'id_kelas.required' => 'Kelas wajib diisi',
                 'sub_kelas.required' => 'Sub Kelas wajib diisi',
             ]
@@ -140,6 +134,18 @@ class AuthSiswaController extends BaseController
     //DETAIL DATA SISWA
     public function profile(Request $request)
     {
-        return $request->user();
+        $user = auth()->user();
+        $success['nis'] = $user->id_siswa;
+        $success['nm_siswa'] = $user->getSiswa['nm_siswa'];
+        $success['jk'] = $user->getSiswa['jk'];
+        $success['tempat_lahir'] = $user->getSiswa['tempat_lahir'];
+        $success['tgl_lahir'] = $user->getSiswa['tgl_lahir'];
+        $success['agama'] = $user->getSiswa['agama'];
+        $success['alamat'] = $user->getSiswa['alamat'];
+        $success['no_telp'] = $user->getSiswa['no_telp'];
+        $success['id_kelas'] = $user->getSiswa['id_kelas'];
+        $success['sub_kelas'] = $user->getSiswa['sub_kelas'];
+        $success['foto_path'] = $user->getSiswa['foto_path'];
+        return response($success);
     }
 }

@@ -83,9 +83,9 @@
                 $(function() {
                     @if (Session::has('errors'))
                         Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        html: '<div>Ada kesalahan dalam mengisi data,<br />silahkan dicek kembali.<br /></div>',
+                            icon: 'error',
+                            title: 'Oops...',
+                            html: '<div>Ada kesalahan dalam mengisi data,<br />silahkan dicek kembali.<br /></div>',
                         })
                     @endif
                 });

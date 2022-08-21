@@ -39,6 +39,8 @@ Route::get('/about', function () {
 
 //    Controller for siswa
 Route::get('/siswa', [SiswaController::class, 'index'])->name('index-siswa');
+Route::get('/siswa/create', [SiswaController::class, 'create'])->name('create-siswa');
+Route::post('/siswa', [SiswaController::class, 'store'])->name('store-siswa');
 Route::get('/siswa/{id}/show', [SiswaController::class, 'show'])->name('show-siswa');
 Route::get('/siswa/{id}/edit', [SiswaController::class, 'edit'])->name('edit-siswa');
 Route::put('/siswa/{id}', [SiswaController::class, 'update'])->name('update-siswa');
@@ -82,7 +84,6 @@ Route::get('/editsoal/{qs}', [LatihanController::class, 'editPertanyaan'])->name
 Route::put('/updatesoal/{qs}', [LatihanController::class, 'updatePertanyaan'])->name('updatePertanyaan');
 Route::get('/deletesoal/{qs}', [LatihanController::class, 'deletePertanyaan'])->name('deletePertanyaan');
 
-Route::get('/finish', [LatihanController::class, 'finishLatihanPertanyaan'])->name('finishLatihanPertanyaan');
 Route::get('/details/{ex}', [LatihanController::class, 'detailLatihanPertanyaan'])->name('detailLatihanPertanyaan');
 
 Route::get('/addmoresoal/{ex}', [LatihanController::class, 'addMorePertanyaan'])->name('addMorePertanyaan');
@@ -90,7 +91,10 @@ Route::post('/storemoresoal/{ex}', [LatihanController::class, 'storeMorePertanya
 
 Route::get('/status/update', [LatihanController::class, 'updateStatus'])->name('latihan.update.status');
 
-
 Route::get('/hasilLatihan', [HasilLatihanController::class, 'index'])->name('index-hasilLatihan');
 Route::get('/hasilLatihan/{id}/show', [HasilLatihanController::class, 'show'])->name('show-hasilLatihan');
 Route::get('/hasilLatihan/{id}', [HasilLatihanController::class, 'destroy'])->name('destroy-hasilLatihan');
+
+Route::get('storage/{fileName}', function ($fileName){
+    return Storage::url('public/' . $$fileName)->response();
+});

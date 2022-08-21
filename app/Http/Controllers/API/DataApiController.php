@@ -44,8 +44,7 @@ class DataApiController extends Controller
             'nm_kelas',
             'nm_guru',
             'bab',
-            'file_materi',
-            'materi_path'
+            'isi_materi',
         )
             ->join('kelas', 'materi.id_kelas', '=', 'kelas.kode_kelas')
             ->join('guru', 'materi.id_guru', '=', 'guru.nip')
@@ -98,7 +97,7 @@ class DataApiController extends Controller
             'kode_materi',
             'nm_materi',
             'bab',
-            'materi_path'
+            'isi_materi'
         )
             ->join('materi', 'materi.kode_materi', '=', 'pertanyaan.id_materi')
             ->join('latihan', 'latihan.kode_latihan', '=', 'pertanyaan.id_latihan')
@@ -116,7 +115,7 @@ class DataApiController extends Controller
                 "kode_materi" => $qs->kode_materi,
                 "nm_materi" => $qs->nm_materi,
                 "bab" => $qs->bab,
-                "materi_path" => $qs->materi_path,
+                "isi_materi" => $qs->isi_materi,
                 "jawaban_benar" => $qs->jawaban_benar,
                 "jawaban_salah" => array(
                     $qs->jawaban_salah_1, $qs->jawaban_salah_2, $qs->jawaban_salah_3

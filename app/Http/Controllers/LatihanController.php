@@ -273,13 +273,6 @@ class LatihanController extends Controller
         return redirect()->route('detailLatihanPertanyaan',  $ex->kode_latihan);
     }
 
-    public function finishLatihanPertanyaan()
-    {
-        $questions = session('ex')->getPertanyaan;
-
-        return view('latihan.finishLatihanPertanyaan')->with(['qs' => $questions, 'ex' => session('ex')]);
-    }
-
     public function detailLatihanPertanyaan(Latihan $ex)
     {
         return view('latihan.detailLatihanPertanyaan')->with(['qs' => $ex->getPertanyaan, 'ex' => $ex]);

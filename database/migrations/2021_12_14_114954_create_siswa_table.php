@@ -24,8 +24,8 @@ class CreateSiswaTable extends Migration
             $table->string('no_telp', 20)->nullable();
             $table->integer('id_kelas');
             $table->string('sub_kelas', 5);
-            $table->string('password')->nullable();
-            $table->rememberToken();
+            $table->string('foto_siswa')->nullable();
+            $table->string('foto_path')->nullable();
             $table->timestamps();
 
             $table->foreign('id_kelas')->references('kode_kelas')->on('kelas');

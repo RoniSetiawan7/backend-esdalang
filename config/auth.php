@@ -73,7 +73,7 @@ return [
 
         'siswa' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Siswa::class,
+            'model' => App\Models\LoginSiswa::class,
         ],
 
         // 'users' => [

@@ -50,7 +50,7 @@ class MateriController extends Controller
                 'bab' => 'required',
                 'id_kelas' => 'required',
                 'id_guru' => 'required',
-                'file_materi' => 'required|mimes:doc,docx,xls,xlsx,ppt,pptx,pdf|max:5120',
+                'isi_materi' => 'required'
             ],
             [
                 'kode_materi.required' => 'ID Materi wajib diisi',
@@ -59,21 +59,10 @@ class MateriController extends Controller
                 'bab.required' => 'Bab Materi wajib diisi',
                 'id_kelas.required' => 'Kelas wajib diisi',
                 'id_guru.required' => 'Guru Pengajar wajib diisi',
-                'file_materi.required' => 'File Materi wajib diisi',
-                'file_materi.mimes' => 'File Materi hanya dapat berupa format doc,docx,xls,xlsx,ppt,pptx,pdf',
-                'file_materi.max' => 'Ukuran File Materi tidak boleh lebih dari 5MB',
+                'isi_materi.required' => 'Isi Materi wajib diisi',
             ]
         );
         $input = $request->all();
-
-        if ($file = $request->file('file_materi')) {
-            $nama_file = time() . '-' . str_replace(' ', '_', $file->getClientOriginalName());
-            $file->storeAs('public/materi/', $nama_file);
-            $input['file_materi'] = "$nama_file";
-
-            $path = Storage::url('public/materi/' . $nama_file);
-            $input['materi_path'] = "$path";
-        }
 
         Materi::create($input);
         session()->flash('success', 'Data materi ditambahkan.');
@@ -121,7 +110,7 @@ class MateriController extends Controller
                 'bab' => 'required',
                 'id_kelas' => 'required',
                 'id_guru' => 'required',
-                'file_materi' => 'nullable|mimes:doc,docx,xls,xlsx,ppt,pptx,pdf|max:5120'
+                'isi_materi' => 'required',
             ],
             [
                 'kode_materi.required' => 'ID Materi wajib diisi',
@@ -129,30 +118,11 @@ class MateriController extends Controller
                 'bab.required' => 'Bab Materi wajib diisi',
                 'id_kelas.required' => 'Kelas wajib diisi',
                 'id_guru.required' => 'Guru Pengajar wajib diisi',
-                'file_materi.mimes' => 'File Materi hanya dapat berupa format doc,docx,xls,xlsx,ppt,pptx,pdf',
-                'file_materi.max' => 'Ukuran File Materi tidak boleh lebih dari 5MB',
+                'isi_materi.required' => 'Isi Materi wajib diisi',
             ]
         );
         $subject = Materi::find($id);
         $input = $request->all();
-
-        if ($request->file_materi != '') {
-            $path = storage_path() . '/app/public/materi/';
-
-            if ($subject->file_materi != ''  && $subject->file_materi != null) {
-                $file_old = $path . $subject->file_materi;
-                unlink($file_old);
-            }
-
-            if ($file = $request->file('file_materi')) {
-                $nama_file = time() . '-' . str_replace(' ', '_', $file->getClientOriginalName());
-                $file->storeAs('public/materi/', $nama_file);
-                $input['file_materi'] = "$nama_file";
-
-                $path = Storage::url('public/materi/' . $nama_file);
-                $input['materi_path'] = "$path";
-            }
-        }
 
         $subject->update($input);
         session()->flash('success', 'Data materi diperbarui.');
@@ -169,7 +139,6 @@ class MateriController extends Controller
     {
         $subject = Materi::find($id);
         $subject->delete();
-        Storage::delete('public/materi/' . $subject->file_materi);
         session()->flash('success', 'Data materi dihapus.');
         return redirect()->route('index-materi');
     }

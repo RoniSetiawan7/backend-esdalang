@@ -18,9 +18,8 @@ class CreateMateriTable extends Migration
             $table->string('nm_materi');
             $table->integer('id_kelas');
             $table->bigInteger('id_guru');
-            $table->integer('bab');
-            $table->string('file_materi');
-            $table->string('materi_path');
+            $table->string('bab');
+            $table->longText('isi_materi');
             $table->timestamps();
 
             $table->foreign('id_kelas')->references('kode_kelas')->on('kelas');
